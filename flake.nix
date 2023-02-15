@@ -14,7 +14,10 @@
           ocaml-lsp-server = "*";
           ocamlformat = "*";
         };
-        resolved-scope = opam-nix-lib.buildOpamProject' { } ./. devPackagesQuery;
+        query = {
+          ocaml-base-compiler = "*";
+        };
+        resolved-scope = opam-nix-lib.buildOpamProject' { } ./. query // devPackagesQuery;
       in rec {
         packages = resolved-scope // { default = resolved-scope.${package}; };
         defaultPackage = packages.default;
